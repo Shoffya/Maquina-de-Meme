@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="scrollBody">
+    <div class="container">
+        <div class="app">
+            <div class="logo">
+                <img src="pictures/logo.png" alt="Logo">
+            </div>
+            <div id="downloaded" class="app-image">
+                <textarea name="" class="text-box" placeholder="Digite seu meme aqui :)"
+                    aria-multiline="true"></textarea>
+
+                <div id="display-image"></div>
+
+                <textarea name="" class="text-box" placeholder="Digite seu meme aqui :)"
+                    aria-multiline="true"></textarea>
+            </div>
+            <div class="app-photo-picker">
+                <select id="meme-list" onchange="changeMemePicture(this.value)">
+                </select>
+
+                <input type="file" id="image-input" accept="image/jpeg, image/png, image/jpg">
+            </div>
+            <div class="download">
+                <button id="btn-download">Download</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/functions.js"></script>
+    <script src="./js/html2Canvas.js"></script>
+    <script>
+        document.getElementById("btn-download").onclick = () => {
+            const screenshotPrint = document.querySelector("#downloaded");
+
+            html2canvas(screenshotPrint).then((canvas) => {
+                const base64Image = canvas.toDataURL("image/png");
+                let anchor = document.createElement("a");
+                anchor.setAttribute("href", base64Image);
+                anchor.setAttribute("download", "my-meme.png");
+                anchor.click();
+                anchor.remove();
+            });
+        }
+
+    </script>
+</body>
+
+</html>
